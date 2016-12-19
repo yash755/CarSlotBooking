@@ -19,26 +19,7 @@ public class UserLocalStore {
         userLocalDatabase = context.getSharedPreferences(SP_Name, 0);
     }
 
-    public void updatearraypres(ArrayList<String> string){
 
-        Set<String> set = new HashSet<String>();
-
-        for(int i=0;i<string.size();i++)
-            set.add(string.get(i));
-
-        System.out.println("Pks" + string.toString());
-        System.out.println("Pk" + set.toString());
-        SharedPreferences.Editor speditor = userLocalDatabase.edit();
-        speditor.putStringSet("parkid",set);
-        speditor.apply();
-    }
-
-    public Set<String> getarraypres(){
-
-        Set<String> set = userLocalDatabase.getStringSet("parkid",null);
-        System.out.println("Add"+ set.toString());
-        return set;
-    }
 
     public void userData(String token,String username)
     {
@@ -62,16 +43,16 @@ public class UserLocalStore {
 
 
 
-    public void updatedustbin(String dustbin)
+    public void updateslot(String slot)
     {
         SharedPreferences.Editor speditor = userLocalDatabase.edit();
-        speditor.putString("dustbin",dustbin);
+        speditor.putString("slot",slot);
         speditor.apply();
     }
 
-    public String getdustbin(){
+    public String getslot(){
 
-        String name = userLocalDatabase.getString("dustbin", "");
+        String name = userLocalDatabase.getString("slot", "");
         System.out.println("Dustbin"+ name);
         return name;
     }

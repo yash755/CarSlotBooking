@@ -36,6 +36,8 @@
             android:label="@string/title_activity_slot_booking"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+
+        <service android:name=".ReceiptService" />
     </application>
 
 </manifest>

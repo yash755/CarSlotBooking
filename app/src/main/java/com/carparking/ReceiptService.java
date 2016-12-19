@@ -1,11 +1,17 @@
 package com.carparking;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -63,10 +69,10 @@ public class ReceiptService extends Service {
             try {
                 httpPost.setEntity(new StringEntity(dataToSend, "UTF-8"));
 
-                // Set up the header types needed to properly transfer JSON
+               /* // Set up the header types needed to properly transfer JSON
                 httpPost.setHeader("Content-Type", "application/json");
                 httpPost.setHeader("Accept-Encoding", "application/json");
-                httpPost.setHeader("Accept-Language", "en-US");
+                httpPost.setHeader("Accept-Language", "en-US");*/
 
                 // Execute POST
                 HttpResponse httpResponse = httpClient.execute(httpPost);
@@ -87,7 +93,12 @@ public class ReceiptService extends Service {
         @Override
         protected void onPostExecute(String result) {
 
-            System.out.println("Slot");
+            if(result.contains("0")) {
+                new UserLocalStore(getApplicationContext()).updateslot("");
+                sendNotification();
+            }
+
+
             new Handler().postDelayed(new Runnable() {
 
                 public void run() {
@@ -98,6 +109,32 @@ public class ReceiptService extends Service {
 
             super.onPostExecute(result);
         }
+
+
+    }
+
+    private void sendNotification() {
+
+            Intent intent = new Intent(this, SlotBooking.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
+                    PendingIntent.FLAG_ONE_SHOT);
+
+            Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+            NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
+                    .setSmallIcon(R.drawable.go)
+                    .setContentTitle("Alert (Receipt Car Parking)")
+                    .setContentText("Your have to pay $5")
+                    .setAutoCancel(true)
+                    .setSound(defaultSoundUri)
+                    .setContentIntent(pendingIntent);
+
+            NotificationManager notificationManager =
+                    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+            notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
+
+
     }
 }
 

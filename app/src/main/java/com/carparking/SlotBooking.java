@@ -52,16 +52,6 @@ public class SlotBooking extends AppCompatActivity implements View.OnClickListen
         i3.setOnClickListener(this);
         i4.setOnClickListener(this);
 
-        startService();
-
-/*
-
-        i1.setImageDrawable(res);
-        i2.setImageDrawable(res1);
-        i3.setImageDrawable(res2);
-        i4.setImageDrawable(res1);
-
-        System.out.println("Drawables" + i1.getContentDescription());*/
 
         
     }
@@ -154,6 +144,7 @@ public class SlotBooking extends AppCompatActivity implements View.OnClickListen
             }else{
                 if(new UserLocalStore(getApplicationContext()).getslot().equals(""))
                 booknow("slot1");
+                else
                     Toast.makeText(this, "You  already book " + new UserLocalStore(getApplicationContext()).getslot(),
                             Toast.LENGTH_LONG).show();
             }
@@ -166,7 +157,7 @@ public class SlotBooking extends AppCompatActivity implements View.OnClickListen
 
             }else{
                 if(new UserLocalStore(getApplicationContext()).getslot().equals(""))
-                    booknow("slot1");
+                    booknow("slot2");
                 else
                     Toast.makeText(this, "You  already book " + new UserLocalStore(getApplicationContext()).getslot(),
                             Toast.LENGTH_LONG).show();
@@ -180,7 +171,7 @@ public class SlotBooking extends AppCompatActivity implements View.OnClickListen
 
             }else{
                 if(new UserLocalStore(getApplicationContext()).getslot().equals(""))
-                    booknow("slot1");
+                    booknow("slot3");
                 else
                     Toast.makeText(this, "You  already book " + new UserLocalStore(getApplicationContext()).getslot(),
                             Toast.LENGTH_LONG).show();
@@ -194,7 +185,7 @@ public class SlotBooking extends AppCompatActivity implements View.OnClickListen
 
             }else{
                 if(new UserLocalStore(getApplicationContext()).getslot().equals(""))
-                    booknow("slot1");
+                    booknow("slot4");
                 else
                     Toast.makeText(this, "You  already book " + new UserLocalStore(getApplicationContext()).getslot(),
                             Toast.LENGTH_LONG).show();
@@ -207,7 +198,7 @@ public class SlotBooking extends AppCompatActivity implements View.OnClickListen
 
         Map<String, String> params = new HashMap<String, String>();
         params.put("slotname",slot);
-        params.put("update_value","2");
+        params.put("update_value","1");
 
         new Util().slotbook(params,this, new GetResult() {
 
@@ -238,7 +229,7 @@ public class SlotBooking extends AppCompatActivity implements View.OnClickListen
 
     }
 
-    public void startService() {
+    public void startService(View view) {
         startService(new Intent(getBaseContext(), ReceiptService.class));
     }
 }

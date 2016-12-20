@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.firebase.messaging.FirebaseMessaging;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -52,7 +54,10 @@ public class SlotBooking extends AppCompatActivity implements View.OnClickListen
         i3.setOnClickListener(this);
         i4.setOnClickListener(this);
 
-        startService();
+        FirebaseMessaging.getInstance().subscribeToTopic("slot1");
+        FirebaseMessaging.getInstance().subscribeToTopic("slot2");
+        FirebaseMessaging.getInstance().subscribeToTopic("slot3");
+        FirebaseMessaging.getInstance().subscribeToTopic("slot4");
 
 
         
@@ -231,7 +236,12 @@ public class SlotBooking extends AppCompatActivity implements View.OnClickListen
 
     }
 
-    public void startService() {
-        startService(new Intent(getBaseContext(), ReceiptService.class));
+
+    @Override
+    protected void onResume() {
+
+        super.onResume();
+        getparkdata();
+
     }
 }

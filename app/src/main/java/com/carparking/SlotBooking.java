@@ -52,6 +52,8 @@ public class SlotBooking extends AppCompatActivity implements View.OnClickListen
         i3.setOnClickListener(this);
         i4.setOnClickListener(this);
 
+        startService();
+
 
         
     }
@@ -99,33 +101,33 @@ public class SlotBooking extends AppCompatActivity implements View.OnClickListen
                 if (parkingslot.get(i).equals("0")) {
                     i1.setImageDrawable(res);
                 } else if (parkingslot.get(i).equals("1")) {
-                    i1.setImageDrawable(res2);
-                } else {
                     i1.setImageDrawable(res1);
+                } else {
+                    i1.setImageDrawable(res2);
                 }
             }else if (i == 1){
                 if (parkingslot.get(i).equals("0")) {
                     i2.setImageDrawable(res);
                 } else if (parkingslot.get(i).equals("1")) {
-                    i2.setImageDrawable(res2);
-                } else {
                     i2.setImageDrawable(res1);
+                } else {
+                    i2.setImageDrawable(res2);
                 }
             }else if (i == 2){
                 if (parkingslot.get(i).equals("0")) {
                     i3.setImageDrawable(res);
                 } else if (parkingslot.get(i).equals("1")) {
-                    i3.setImageDrawable(res2);
-                } else {
                     i3.setImageDrawable(res1);
+                } else {
+                    i3.setImageDrawable(res2);
                 }
             }else if (i == 3){
                 if (parkingslot.get(i).equals("0")) {
                     i4.setImageDrawable(res);
                 } else if (parkingslot.get(i).equals("1")) {
-                    i4.setImageDrawable(res2);
-                } else {
                     i4.setImageDrawable(res1);
+                } else {
+                    i4.setImageDrawable(res2);
                 }
             }
         }
@@ -140,55 +142,55 @@ public class SlotBooking extends AppCompatActivity implements View.OnClickListen
             String id = parkingslot.get(0);
             if(id.equals("1") || id.equals("2")){
                 Toast.makeText(this, "You  can't book now",
-                        Toast.LENGTH_LONG).show();
+                        Toast.LENGTH_SHORT).show();
             }else{
                 if(new UserLocalStore(getApplicationContext()).getslot().equals(""))
                 booknow("slot1");
                 else
                     Toast.makeText(this, "You  already book " + new UserLocalStore(getApplicationContext()).getslot(),
-                            Toast.LENGTH_LONG).show();
+                            Toast.LENGTH_SHORT).show();
             }
 
         }else if (view == i2){
             String id = parkingslot.get(1);
             if(id.equals("1") || id.equals("2")){
                 Toast.makeText(this, "You  can't book now",
-                        Toast.LENGTH_LONG).show();
+                        Toast.LENGTH_SHORT).show();
 
             }else{
                 if(new UserLocalStore(getApplicationContext()).getslot().equals(""))
                     booknow("slot2");
                 else
                     Toast.makeText(this, "You  already book " + new UserLocalStore(getApplicationContext()).getslot(),
-                            Toast.LENGTH_LONG).show();
+                            Toast.LENGTH_SHORT).show();
             }
 
         }else if (view == i3){
             String id = parkingslot.get(2);
             if(id.equals("1") || id.equals("2")){
                 Toast.makeText(this, "You  can't book now",
-                        Toast.LENGTH_LONG).show();
+                        Toast.LENGTH_SHORT).show();
 
             }else{
                 if(new UserLocalStore(getApplicationContext()).getslot().equals(""))
                     booknow("slot3");
                 else
                     Toast.makeText(this, "You  already book " + new UserLocalStore(getApplicationContext()).getslot(),
-                            Toast.LENGTH_LONG).show();
+                            Toast.LENGTH_SHORT).show();
             }
 
         }else{
             String id = parkingslot.get(3);
             if(id.equals("1") || id.equals("2")){
                 Toast.makeText(this, "You  can't book now",
-                        Toast.LENGTH_LONG).show();
+                        Toast.LENGTH_SHORT).show();
 
             }else{
                 if(new UserLocalStore(getApplicationContext()).getslot().equals(""))
                     booknow("slot4");
                 else
                     Toast.makeText(this, "You  already book " + new UserLocalStore(getApplicationContext()).getslot(),
-                            Toast.LENGTH_LONG).show();
+                            Toast.LENGTH_SHORT).show();
             }
 
         }
@@ -198,7 +200,7 @@ public class SlotBooking extends AppCompatActivity implements View.OnClickListen
 
         Map<String, String> params = new HashMap<String, String>();
         params.put("slotname",slot);
-        params.put("update_value","2");
+        params.put("update_value","1");
 
         new Util().slotbook(params,this, new GetResult() {
 
@@ -229,7 +231,7 @@ public class SlotBooking extends AppCompatActivity implements View.OnClickListen
 
     }
 
-    public void startService(View view) {
+    public void startService() {
         startService(new Intent(getBaseContext(), ReceiptService.class));
     }
 }
